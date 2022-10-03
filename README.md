@@ -1,4 +1,4 @@
-# ww
+# vue-task-tracker
 
 ## Project setup
 ```
