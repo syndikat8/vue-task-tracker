@@ -1,27 +1,21 @@
 <template>
   <div class="app">
-    <MainHeader/>
-    <SearchInput/>
-    <DocsList/>
+    <MainPage/>
   </div>
 </template>
 
 <script>
 
-import SearchInput from "@/common/SearchInput/SearchInput";
-import MainHeader from "@/components/MainHeader/MainHeader";
-import DocsList from "@/components/DocsList/DocsList";
+import MainPage from "@/Pages/MainPage/MainPage";
 
 export default {
   name: 'App',
   components: {
-    DocsList,
-    MainHeader,
-    SearchInput
+    MainPage,
   }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+  @import "sass/style";
 </style>
