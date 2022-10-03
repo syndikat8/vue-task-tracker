@@ -1,7 +1,7 @@
 <template>
   <div
-      class="custom-button"
-      @click="onButtonClick"
+    class="custom-button"
+    @click="onButtonClick"
   >
     <div class="custom-button__icon">
       <PlusIcon/>
@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     onButtonClick () {
-      console.log('onButtonClick')
       this.$emit('onButtonClick')
     }
   }

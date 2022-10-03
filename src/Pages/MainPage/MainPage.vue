@@ -1,7 +1,13 @@
 <template>
   <div class="main-page">
-    <MainHeader/>
-    <SearchInput/>
+    <MainHeader
+      @onAddNewType="onAddNewType"
+      @onAddNewDoc="onAddNewDoc"
+    />
+    <SearchInput
+      :searchValue="searchValue"
+      @onSearch="onSearch"
+    />
     <DocsList/>
   </div>
 </template>
@@ -17,6 +23,21 @@ export default {
     DocsList,
     SearchInput,
     MainHeader
+  },
+  data: () => ({
+    searchValue: ''
+  }),
+  methods: {
+    onAddNewType () {
+      console.log('onAddNewType')
+    },
+    onAddNewDoc () {
+      console.log('onAddNewDoc')
+    },
+    onSearch (value) {
+      this.searchValue = value
+      console.log('onSearch')
+    }
   }
 }
 

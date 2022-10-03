@@ -29,10 +29,10 @@ export default {
   }),
   methods: {
     onAddNewType () {
-      console.log('onAddNewType')
+      this.$emit('onAddNewType')
     },
     onAddNewDoc () {
-      console.log('onAddNewDoc')
+      this.$emit('onAddNewDoc')
     }
   }
 }
@@ -45,6 +45,7 @@ export default {
   display: grid;
    grid-template-columns: 1fr 30px 115px 150px;
    grid-gap: 0 10px;
+   margin: 0 0 15px 0;
 
    &__title {
      font-size: 22px;
