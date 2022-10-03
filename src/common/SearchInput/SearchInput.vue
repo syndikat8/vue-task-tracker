@@ -6,6 +6,7 @@
     <input
       class="search-input__input"
       :value="searchValue"
+      :placeholder="placeholder"
       @input="onSearch($event)"
     />
     <transition name="fade">
@@ -31,6 +32,10 @@ export default {
   },
   props: {
     searchValue: {
+      type: String,
+      default: ''
+    },
+    placeholder: {
       type: String,
       default: ''
     }
@@ -64,7 +69,17 @@ export default {
       line-height: 16px;
       font-weight: 400;
       border: none;
-      border-bottom: 2px solid $color-blue;
+      border-bottom: 1px solid $color-nepal;
+      transition: 0.2s;
+
+      &::-webkit-input-placeholder {
+        color: $color-nepal;
+        font-style: italic;
+      }
+
+      &:focus {
+        border-bottom-color: $color-blue;
+      }
     }
 
     &__search {

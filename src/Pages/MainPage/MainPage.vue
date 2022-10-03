@@ -6,6 +6,7 @@
     />
     <SearchInput
       :searchValue="searchValue"
+      placeholder="Поиск"
       @onSearch="onSearch"
     />
     <DocsList/>
@@ -29,14 +30,11 @@ export default {
   }),
   methods: {
     onAddNewType () {
-      console.log('onAddNewType')
     },
     onAddNewDoc () {
-      console.log('onAddNewDoc')
     },
     onSearch (value) {
       this.searchValue = value
-      console.log('onSearch')
     }
   }
 }
@@ -47,5 +45,7 @@ export default {
 
   .main-page {
     margin: 20px 20px;
+    display: grid;
+    grid-gap: 20px 0;
   }
 </style>
