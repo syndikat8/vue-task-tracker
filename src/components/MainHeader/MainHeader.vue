@@ -29,10 +29,20 @@ export default {
   }),
   methods: {
     onAddNewType () {
-      this.$emit('onAddNewType')
+     const newType = {
+       id: Math.random(),
+       title: new Date(),
+       isOpen: false,
+       items: []
+     }
+      this.$emit('onAddNewType', newType)
     },
     onAddNewDoc () {
-      this.$emit('onAddNewDoc')
+      const newDoc = {
+        id: Math.random(),
+        title: new Date()
+      }
+      this.$emit('onAddNewDoc', newDoc)
     }
   }
 }
