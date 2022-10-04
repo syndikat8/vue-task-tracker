@@ -9,7 +9,13 @@
       placeholder="Поиск"
       @onSearch="onSearch"
     />
-    <DocsList/>
+    <DocsList
+      :docsList.sync="docsList"
+      :footerList.sync="footerList"
+      @onEdit="onEdit"
+      @onDelete="onDelete"
+      @onOpen="onOpen"
+    />
   </div>
 </template>
 
@@ -26,15 +32,83 @@ export default {
     MainHeader
   },
   data: () => ({
-    searchValue: ''
+    searchValue: '',
+    footerList: [
+      {
+        id: 1,
+        title: 'Тестовое задание кандидата',
+      },
+      {
+        id: 2,
+        title: 'Трудовой договор',
+      },
+      {
+        id: 3,
+        title: 'Мед. книжка',
+      },
+    ],
+    docsList: [
+      {
+        id: 1,
+        title: 'Обязательные для всех',
+        isOpen: false,
+        items: [
+          {
+            id: 1,
+            title: 'Паспорт',
+          },
+          {
+            id: 2,
+            title: 'ИНН',
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: 'Обязательные для трудоустройства',
+        isOpen: false,
+        items: [
+          {
+            id: 4,
+            title: 'Свидетельство об оброзовании',
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: 'Специальные',
+        isOpen: false,
+        items: [
+          {
+            id: 4,
+            title: 'Регистрация ИП',
+          },
+        ]
+      }
+    ]
   }),
   methods: {
-    onAddNewType () {
+    onAddNewType (type) {
+      this.docsList.push(type)
     },
-    onAddNewDoc () {
+    onAddNewDoc (newDoc) {
+      this.footerList.push(newDoc)
     },
     onSearch (value) {
       this.searchValue = value
+    },
+    onEdit ({ id }) {
+      const currentItem = this.docsList.find((el) => el.id === id)
+      currentItem.title = new Date()
+    },
+    onDelete ({ id }) {
+      const currentIndex = this.docsList.findIndex((el) => el.id === id)
+      this.docsList.splice(currentIndex, 1)
+    },
+    onOpen ({ id }) {
+      const currentItem = this.docsList.find((el) => el.id === id)
+      const { isOpen } = currentItem
+      currentItem.isOpen = !isOpen
     }
   }
 }
@@ -42,6 +116,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../sass/variables";
 
   .main-page {
     margin: 20px 20px;
