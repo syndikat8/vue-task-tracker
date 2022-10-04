@@ -21,7 +21,7 @@
          v-if="searchValue ? item.isSearch: true"
          :item="item"
          :key="item.id"
-         :style="{height: `${doc.isOpen ? 35 : 0}px`}"
+         :style="{height: `${doc.isOpen ? heightItem : 0}px`}"
          @onEdit="onEditItem"
          @onDelete="onDeleteItem"
        />
@@ -52,6 +52,9 @@ export default {
       default: ''
     }
   },
+  data: () => ({
+    heightItem: 35
+  }),
   computed: {
     isBorderBottom () {
       const { isOpen = false, items = [] } = this.doc
@@ -61,10 +64,9 @@ export default {
       const { isOpen = false, items = [] } = this.doc
       const height = this.searchValue ? items.filter((el) => el.isSearch) : items
       return {
-        height: `${isOpen ? height.length * 35 : 0}px`,
+        height: `${isOpen ? height.length * this.heightItem : 0}px`,
         zIndex: isOpen ? 1 : -1,
         opacity: isOpen ? 1 : 0,
-        position: 'relative'
       }
     },
   },
@@ -122,6 +124,7 @@ export default {
 
     &__wrap {
       margin: 0 0 0 16px;
+      position: relative;
       transition: all 0.2s;
     }
   }
