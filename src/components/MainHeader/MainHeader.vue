@@ -32,6 +32,7 @@ export default {
      const newType = {
        id: Math.random(),
        title: new Date(),
+       isOpen: false,
        items: []
      }
       this.$emit('onAddNewType', newType)

@@ -1,5 +1,8 @@
 <template>
-  <div class="docs-list-type">
+  <div
+    class="docs-list-type"
+    :class="[isBorderBottom && 'docs-list-type_last']"
+  >
     <DocsListTypeHeader
       :doc="doc"
       @onEdit="onEdit"
@@ -42,6 +45,12 @@ export default {
       default: () => ({})
     }
   },
+  computed: {
+    isBorderBottom () {
+      const { isOpen = false, items = [] } = this.doc
+      return isOpen && items.length
+    }
+  },
   methods: {
     dragOptions () {
       return {
@@ -82,6 +91,16 @@ export default {
 
     &:first-child {
       border-top: 1px solid $color-botticelli;
+    }
+
+    &_last {
+      &:nth-last-child(-n+2) {
+        border-bottom: 0;
+      }
+
+      .docs-list-type__wrap {
+        border-bottom: 1px solid $color-botticelli;
+      }
     }
 
     &__wrap {

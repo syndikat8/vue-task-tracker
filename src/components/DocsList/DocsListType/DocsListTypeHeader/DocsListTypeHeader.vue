@@ -1,7 +1,7 @@
 <template>
   <div
     class="docs-list-type-header"
-    :class="[isOpen && 'docs-list-type-header_border-bottom']"
+    :class="[isBorderBottom && 'docs-list-type-header_border-bottom']"
   >
     <div
       class="docs-list-type-header__arrow"
@@ -41,6 +41,10 @@ export default {
     title () {
       const { title } = this.doc
       return title
+    },
+    isBorderBottom () {
+      const { isOpen = false, items = [] } = this.doc
+      return isOpen && items.length
     },
     isOpen () {
       const { isOpen = false } = this.doc
