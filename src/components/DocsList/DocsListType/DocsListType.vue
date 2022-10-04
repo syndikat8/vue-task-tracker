@@ -10,17 +10,18 @@
       @onOpen="onOpen"
     />
     <draggable
-      v-if="doc.isOpen"
       :list="doc.items"
       v-bind="dragOptions()"
       group="type-item"
       class="docs-list-type__wrap"
+      :style="typeStyle"
     >
       <template v-for="item in doc.items">
        <DocsListTypeItem
          v-if="searchValue ? item.isSearch: true"
          :item="item"
          :key="item.id"
+         :style="{height: `${doc.isOpen ? 35 : 0}px`}"
          @onEdit="onEditItem"
          @onDelete="onDeleteItem"
        />
@@ -55,7 +56,17 @@ export default {
     isBorderBottom () {
       const { isOpen = false, items = [] } = this.doc
       return isOpen && items.length
-    }
+    },
+    typeStyle () {
+      const { isOpen = false, items = [] } = this.doc
+      const height = this.searchValue ? items.filter((el) => el.isSearch) : items
+      return {
+        height: `${isOpen ? height.length * 35 : 0}px`,
+        zIndex: isOpen ? 1 : -1,
+        opacity: isOpen ? 1 : 0,
+        position: 'relative'
+      }
+    },
   },
   methods: {
     dragOptions () {
@@ -102,15 +113,16 @@ export default {
     &_last {
       &:nth-last-child(-n+2) {
         border-bottom: 0;
-      }
 
-      .docs-list-type__wrap {
-        border-bottom: 1px solid $color-botticelli;
+        .docs-list-type__wrap {
+          border-bottom: 1px solid $color-botticelli;
+        }
       }
     }
 
     &__wrap {
       margin: 0 0 0 16px;
+      transition: all 0.2s;
     }
   }
 </style>

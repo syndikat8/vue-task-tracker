@@ -54,6 +54,7 @@ export default {
     padding: 9px 15px 9px 15px;
     border-left: 1px solid $color-botticelli;
     border-right: 1px solid $color-botticelli;
+    transition: all 0.2s;
 
     & + & {
       border-top: 1px solid $color-botticelli;
