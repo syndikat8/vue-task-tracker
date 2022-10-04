@@ -16,13 +16,15 @@
       group="type-item"
       class="docs-list-type__wrap"
     >
-     <DocsListTypeItem
-       v-for="item in doc.items"
-       :item="item"
-       :key="item.id"
-       @onEdit="onEditItem"
-       @onDelete="onDeleteItem"
-     />
+      <template v-for="item in doc.items">
+       <DocsListTypeItem
+         v-if="searchValue ? item.isSearch: true"
+         :item="item"
+         :key="item.id"
+         @onEdit="onEditItem"
+         @onDelete="onDeleteItem"
+       />
+      </template>
     </draggable>
   </div>
 </template>
@@ -43,6 +45,10 @@ export default {
     doc: {
       type: Object,
       default: () => ({})
+    },
+    searchValue: {
+      type: String,
+      default: ''
     }
   },
   computed: {

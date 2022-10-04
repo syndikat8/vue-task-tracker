@@ -12,6 +12,7 @@
     <DocsList
       :docsList.sync="docsList"
       :footerList.sync="footerList"
+      :searchValue="searchValue"
       @onEdit="onEdit"
       @onDelete="onDelete"
       @onOpen="onOpen"
@@ -97,6 +98,17 @@ export default {
     onSearch (value) {
       this.searchValue = value
     },
+    search (items) {
+      const newArray = items.map((el) => {
+        const { title } = el
+        const newTitle = title.toLowerCase()
+        return {
+          ...el,
+          isSearch: newTitle.search(this.searchValue.toLowerCase()) !== -1
+        }
+      })
+      return newArray
+    },
     onEdit ({ id }) {
       const currentItem = this.docsList.find((el) => el.id === id)
       currentItem.title = new Date()
@@ -109,6 +121,16 @@ export default {
       const currentItem = this.docsList.find((el) => el.id === id)
       const { isOpen } = currentItem
       currentItem.isOpen = !isOpen
+    }
+  },
+  watch: {
+    searchValue () {
+      this.footerList = this.search(this.footerList)
+      this.docsList = this.search(this.docsList)
+      this.docsList.forEach((el) => {
+        const { items = [] } = el
+        el.items = this.search(items)
+      })
     }
   }
 }

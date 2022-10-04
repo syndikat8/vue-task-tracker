@@ -4,28 +4,33 @@
       :list="docs"
       v-bind="dragOptions()"
     >
-     <DocsListType
-       v-for="doc in docs"
-       :doc="doc"
-       :key="doc.id"
-       @onEdit="onEdit"
-       @onDelete="onDelete"
-       @onOpen="onOpen"
-     />
+     <template v-for="doc in docs">
+       <DocsListType
+         v-if="searchValue ? doc.isSearch: true"
+         :doc="doc"
+         :key="doc.id"
+         :searchValue="searchValue"
+         @onEdit="onEdit"
+         @onDelete="onDelete"
+         @onOpen="onOpen"
+       />
+     </template>
       <div class="docs-list__footer">
        <draggable
         :list="footerElements"
         group="type-item"
         v-bind="dragOptions()"
        >
-         <DocsListTypeItem
-           v-for="item in footerElements"
-           :item="item"
-           :key="item.id"
-           :isFooter="true"
-           @onEdit="onEditItem"
-           @onDelete="onDeleteItem"
-         />
+         <template v-for="item in footerElements">
+           <DocsListTypeItem
+             v-if="searchValue ? item.isSearch: true"
+             :item="item"
+             :key="item.id"
+             :isFooter="true"
+             @onEdit="onEditItem"
+             @onDelete="onDeleteItem"
+           />
+         </template>
        </draggable>
       </div>
     </draggable>
@@ -52,6 +57,10 @@ export default {
     footerList: {
       type: Array,
       default: () => ([])
+    },
+    searchValue: {
+      type: String,
+      default: ''
     }
   },
   computed: {
